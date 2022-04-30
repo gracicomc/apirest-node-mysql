@@ -7,7 +7,7 @@ class Tables {
 
     createPersons() {
         const sql = ` 
-      CREATE TABLE Persons (
+      CREATE TABLE IF NOT EXISTS Persons (
       id int NOT NULL AUTO_INCREMENT,
       name varchar(70) NOT NULL,
       cpf varchar(11) NOT NULL,
