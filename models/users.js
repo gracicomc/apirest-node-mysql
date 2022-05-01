@@ -1,14 +1,20 @@
+const moment = require('moment');
 const connection = require('../database/connection');
 
 class User {
-    add(users) {
+    add(users, res) {
+        const birthDate = moment(users.birthDate, 'DD/MM/YYYY').format(
+            'YYYY-MM-DD'
+        );
+
+        const birthdayDate = { ...users, birthDate };
         const sql = `INSERT INTO Users SET ?`;
 
-        connection.query(sql, users, (err, result) => {
+        connection.query(sql, birthdayDate, (err, result) => {
             if (err) {
-                console.log(err);
+                res.json(err);
             } else {
-                console.log(result);
+                res.json(result);
             }
         });
     }
