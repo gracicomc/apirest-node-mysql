@@ -3,6 +3,7 @@ class Tables {
         this.connection = connection;
 
         this.createUsers();
+        this.createTasks();
     }
 
     createUsers() {
@@ -29,6 +30,23 @@ class Tables {
                 console.log(err);
             } else {
                 console.log('USERS Table was created successfully!');
+            }
+        });
+    }
+
+    createTasks() {
+        const sql = `
+        CREATE TABLE IF NOT EXISTS Tasks ( 
+        description varchar(200) NOT NULL,
+        date DATETIME NOT NULL, 
+        id int,
+        CONSTRAINT fk_UserTask FOREIGN KEY (id) REFERENCES Users (id))
+        `;
+        this.connection.query(sql, (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('TASKS Table was created successfully!');
             }
         });
     }
