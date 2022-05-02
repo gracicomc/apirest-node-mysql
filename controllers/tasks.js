@@ -16,4 +16,12 @@ module.exports = (app) => {
 
         Task.listById(id, res);
     });
+
+    //PUT
+    app.put('/api/v1/task/:id', (req, res) => {
+        const id = parseInt(req.params.id);
+        const values = req.body;
+
+        Task.updateTaskPut(id, values, res);
+    });
 };

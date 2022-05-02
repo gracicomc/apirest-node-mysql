@@ -70,7 +70,26 @@ class Task {
                 res.status(200).json(task);
             }
         });
-        //End of list task by ID method
+    } //End of list task by ID method
+
+    //update methods
+    //PUT
+    updateTaskPut(id, values, res) {
+        if (values.date) {
+            values.date = moment(values.date, 'DD/MM/YYYY HH:mm:ss').format(
+                'YYYY-MM-DD'
+            );
+        }
+
+        const sql = 'UPDATE Tasks SET ? WHERE user=?';
+
+        connection.query(sql, [values, id], (err, results) => {
+            if (err) {
+                res.status(404).json(err);
+            } else {
+                res.status(201).json({ ...values, id });
+            }
+        });
     }
 }
 
