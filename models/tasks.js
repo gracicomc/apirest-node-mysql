@@ -63,8 +63,8 @@ class Task {
         const sql = `SELECT tasks.*, users.id FROM tasks JOIN users on tasks.user = users.id WHERE user=${id}`;
 
         connection.query(sql, (err, results) => {
-            console.log(err);
-            if (err === null) {
+            console.log(results);
+            if (err) {
                 res.status(400).json(err);
             } else {
                 const task = results[0];
@@ -85,7 +85,7 @@ class Task {
         const sql = 'UPDATE Tasks SET ? WHERE user=?';
 
         connection.query(sql, [values, id], (err, results) => {
-            if (err) {
+            if (results.affectedRows == 0 && err === null) {
                 res.status(404).json(err);
             } else {
                 res.status(201).json({ ...values, id });
@@ -103,7 +103,7 @@ class Task {
 
         const sql = 'UPDATE Tasks SET ? WHERE user=?';
         connection.query(sql, [values, id], (err, results) => {
-            if (err) {
+            if (results.affectedRows == 0 && err === null) {
                 res.status(404).json(err);
             } else {
                 res.status(200).json({ ...values, id });
@@ -117,12 +117,10 @@ class Task {
         const sql = 'DELETE FROM Tasks WHERE user=?';
 
         connection.query(sql, id, (err, results) => {
-            if (err === null) {
+            if (results.affectedRows == 0 && err === null) {
                 return res.status(404).json(err);
             } else {
-                return res
-                    .status(202)
-                    .json(`Task ${id} has been successfully deleted`);
+                return res.status(204).json(results);
             }
         });
     } //end of delete method

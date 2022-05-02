@@ -137,7 +137,6 @@ class User {
         connection.query(sql, (err, results) => {
             const user = results[0];
             if (err) {
-                console.log('mensagem de erro');
                 res.status(400).json(err);
             } else {
                 res.status(200).json(user);
@@ -158,7 +157,7 @@ class User {
         const sql = 'UPDATE Users SET ? WHERE id=?';
 
         connection.query(sql, [values, id], (err, results) => {
-            if (err) {
+            if (results.affectedRows == 0 && err === null) {
                 res.status(404).json(err);
             } else {
                 res.status(201).json(results);
@@ -176,7 +175,7 @@ class User {
         const sql = 'UPDATE Users SET ? WHERE id=?';
 
         connection.query(sql, [values, id], (err, results) => {
-            if (err) {
+            if (results.affectedRows == 0 && err === null) {
                 res.status(404).json(err);
             } else {
                 res.status(201).json({ ...values, id });
@@ -191,12 +190,10 @@ class User {
         const sql = 'DELETE FROM Users WHERE id=?';
 
         connection.query(sql, id, (err, results) => {
-            if (err) {
+            if (results.affectedRows == 0 && err === null) {
                 res.status(404).json(err);
             } else {
-                res.status(202).json(
-                    `User ${id} has been successfully deleted`
-                );
+                res.status(204).json(results);
             }
         });
 
