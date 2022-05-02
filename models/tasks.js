@@ -5,7 +5,7 @@ class Task {
     //add task method
     addTask(tasks, res) {
         //formatting date to brasil pattern
-        const date = moment(tasks.date, 'DD/MM/YYYY').format(
+        const date = moment(tasks.date, 'DD/MM/YYYY HH:mm:ss').format(
             'YYYY-MM-DD HH:mm:ss'
         );
 
@@ -57,6 +57,20 @@ class Task {
                 res.status(200).json(results);
             }
         });
+    }
+    //list task by ID method
+    listById(id, res) {
+        const sql = `SELECT tasks.*, users.id FROM tasks JOIN users on tasks.user = users.id WHERE user=${id}`;
+
+        connection.query(sql, (err, results) => {
+            if (err) {
+                res.status(400).json(err);
+            } else {
+                const task = results[0];
+                res.status(200).json(task);
+            }
+        });
+        //End of list task by ID method
     }
 }
 

@@ -10,4 +10,10 @@ module.exports = (app) => {
     app.get('/api/v1/task', (req, res) => {
         Task.listTasks(res);
     });
+    //GET by ID
+    app.get('/api/v1/task/:id', (req, res) => {
+        const id = Number(req.params['id']);
+
+        Task.listById(id, res);
+    });
 };

@@ -181,8 +181,9 @@ class User {
                 res.status(201).json({ ...values, id });
             }
         });
+
+        //end of updates methods
     }
-    //end of updates methods
 
     //delete method
     deleteUser(id, res) {
@@ -197,6 +198,8 @@ class User {
                 );
             }
         });
+
+        //end of delete method
     }
 }
 
