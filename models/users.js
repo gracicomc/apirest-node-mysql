@@ -135,10 +135,48 @@ class User {
         const sql = `SELECT * FROM Users WHERE id=${id}`;
 
         connection.query(sql, (err, results) => {
-            if (erro) {
+            const user = results[0];
+            if (err) {
                 res.status(400).json(err);
             } else {
+                res.status(200).json(user);
+            }
+        });
+        //End of list user by ID method
+    }
+    //end of list user by ID method
+
+    //updates methods
+    //PATCH
+    updateUserPatch(id, values, res) {
+        if (values.birthDate) {
+            values.birthDate = moment(values.birthDate, 'DD/MM/YYYY').format(
+                'YYYY-MM-DD'
+            );
+        }
+        const sql = 'UPDATE Users SET ? WHERE id=?';
+
+        connection.query(sql, [values, id], (err, results) => {
+            if (err) {
+                res.status(404).json(err);
+            } else {
                 res.status(200).json(results);
+            }
+        });
+    }
+    //PUT
+
+    //end of updates methods
+
+    //delete method
+    delete(id, res) {
+        const sql = 'DELETE FROM Users WHERE id=?';
+
+        connection.query(sql, id, (err, results) => {
+            if (err) {
+                res.status(404).json(err);
+            } else {
+                res.status(200).json(`${id} user deleted successfully`);
             }
         });
     }

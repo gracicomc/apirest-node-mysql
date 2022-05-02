@@ -11,6 +11,6 @@ connection.connect((err) => {
 
         Tables.init(connection);
         const app = customExpress();
-        app.listen(3000, () => console.log('launching server on 3000 port'));
+        app.listen(3000, () => console.log('launch server on 3000 port'));
     }
 });
