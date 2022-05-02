@@ -160,7 +160,25 @@ class User {
             if (err) {
                 res.status(404).json(err);
             } else {
-                res.status(200).json(results);
+                res.status(201).json(results);
+            }
+        });
+    }
+
+    updateUserPut(id, values, res) {
+        if (values.birthDate) {
+            values.birthDate = moment(values.birthDate, 'DD/MM/YYYY').format(
+                'YYYY-MM-DD'
+            );
+        }
+
+        const sql = 'UPDATE Users SET ? WHERE id=?';
+
+        connection.query(sql, [values, id], (err, results) => {
+            if (err) {
+                res.status(404).json(err);
+            } else {
+                res.status(201).json({ ...values, id });
             }
         });
     }
@@ -174,7 +192,7 @@ class User {
             if (err) {
                 res.status(404).json(err);
             } else {
-                res.status(200).json(
+                res.status(202).json(
                     `User ${id} has been successfully deleted`
                 );
             }
