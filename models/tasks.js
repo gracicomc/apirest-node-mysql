@@ -92,6 +92,24 @@ class Task {
         });
     }
 
+    //PATCH
+    updateTaskPatch(id, values, res) {
+        if (values.date) {
+            values.date = moment(values.date, 'DD/MM/YYYY').format(
+                'YYYY-MM-DD HH:mm:ss'
+            );
+        }
+
+        const sql = 'UPDATE Tasks SET ? WHERE user=?';
+        connection.query(sql, [values, id], (err, results) => {
+            if (err) {
+                res.status(404).json(err);
+            } else {
+                res.status(200).json({ ...values, id });
+            }
+        });
+    }
+
     //DELETE
     //delete method
     deleteTask(id, res) {

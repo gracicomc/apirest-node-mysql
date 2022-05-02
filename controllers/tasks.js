@@ -25,6 +25,15 @@ module.exports = (app) => {
         Task.updateTaskPut(id, values, res);
     });
 
+    //PATCH
+    //PATCH
+    app.patch('/api/v1/task/:id', (req, res) => {
+        const id = parseInt(req.params.id);
+        const values = req.body;
+
+        Task.updateTaskPatch(id, values, res);
+    });
+
     //DELETE
     app.delete('/api/v1/task/:id', (req, res) => {
         const id = parseInt(req.params.id);
