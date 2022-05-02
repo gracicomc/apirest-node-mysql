@@ -64,7 +64,7 @@ class Task {
 
         connection.query(sql, (err, results) => {
             console.log(err);
-            if (err) {
+            if (err === null) {
                 res.status(400).json(err);
             } else {
                 const task = results[0];
