@@ -1,4 +1,3 @@
-//exporting person function
 const User = require('../models/users');
 module.exports = (app) => {
     //POST
@@ -28,6 +27,7 @@ module.exports = (app) => {
         User.updateUserPatch(id, values, res);
     });
 
+    //PUT
     app.put('/api/v1/user/:id', (req, res) => {
         const id = parseInt(req.params.id);
         const values = req.body;
