@@ -137,6 +137,7 @@ class User {
         connection.query(sql, (err, results) => {
             const user = results[0];
             if (err) {
+                console.log('mensagem de erro');
                 res.status(400).json(err);
             } else {
                 res.status(200).json(user);
