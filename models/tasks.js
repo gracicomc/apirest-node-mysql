@@ -91,6 +91,22 @@ class Task {
             }
         });
     }
+
+    //DELETE
+    //delete method
+    deleteTask(id, res) {
+        const sql = 'DELETE FROM Tasks WHERE user=?';
+
+        connection.query(sql, id, (err, results) => {
+            if (err) {
+                res.status(404).json(err);
+            } else {
+                res.status(202).json(
+                    `User ${id} has been successfully deleted`
+                );
+            }
+        });
+    } //end of delete method
 }
 
 module.exports = new Task();
