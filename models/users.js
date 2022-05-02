@@ -3,7 +3,7 @@ const connection = require('../database/connection');
 
 class User {
     //add user method
-    add(users, res) {
+    addUser(users, res) {
         //formatting date to brasil pattern
         const birthDate = moment(users.birthDate, 'DD/MM/YYYY').format(
             'YYYY-MM-DD'
@@ -117,7 +117,7 @@ class User {
     //end of add user method
 
     //list users method
-    list(res) {
+    listUser(res) {
         const sql = 'SELECT * FROM Users';
 
         connection.query(sql, (err, results) => {
@@ -164,19 +164,19 @@ class User {
             }
         });
     }
-    //PUT
-
     //end of updates methods
 
     //delete method
-    delete(id, res) {
+    deleteUser(id, res) {
         const sql = 'DELETE FROM Users WHERE id=?';
 
         connection.query(sql, id, (err, results) => {
             if (err) {
                 res.status(404).json(err);
             } else {
-                res.status(200).json(`${id} user deleted successfully`);
+                res.status(200).json(
+                    `User ${id} has been successfully deleted`
+                );
             }
         });
     }

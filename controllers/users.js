@@ -1,9 +1,16 @@
 //exporting person function
 const User = require('../models/users');
 module.exports = (app) => {
+    //POST
+    app.post('/api/v1/user', (req, res) => {
+        const user = req.body;
+
+        User.addUser(user, res);
+    });
+
     //GET
     app.get('/api/v1/user', (req, res) => {
-        User.list(res);
+        User.listUser(res);
     });
 
     //GET by ID
@@ -21,10 +28,17 @@ module.exports = (app) => {
         User.updateUserPatch(id, values, res);
     });
 
-    //POST
-    app.post('/api/v1/user', (req, res) => {
-        const user = req.body;
+    app.put('/api/v1/user/:id', (req, res) => {
+        const id = parseInt(req.params.id);
+        const values = req.body;
 
-        User.add(user, res);
+        User.updateUserPut(id, values, res);
+    });
+
+    //DELETE
+    app.delete('/api/v1/user/:id', (req, res) => {
+        const id = parseInt(req.params.id);
+
+        User.deleteUser(id, res);
     });
 };
