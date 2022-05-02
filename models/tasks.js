@@ -120,7 +120,7 @@ class Task {
                 res.status(404).json(err);
             } else {
                 res.status(202).json(
-                    `User ${id} has been successfully deleted`
+                    `Task ${id} has been successfully deleted`
                 );
             }
         });
